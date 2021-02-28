@@ -16,7 +16,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Back from "./common/Back";
+import TextField from '@material-ui/core/TextField';
 
 const qs = require("query-string");
 const backgroundShape = require("../images/shape.svg");
@@ -99,8 +101,9 @@ const getSteps = () => {
 class Wizard extends Component {
   state = {
     activeStep: 0,
-    fieldType: "ほ場の種類",
-    soilType: "土壌の種類",
+    fieldType: null,
+    soilType: null,
+    caoResult: 0,
     repaimentAccount: "Saving Account",
     termsChecked: false,
     labelWidth: 0
@@ -193,7 +196,7 @@ class Wizard extends Component {
                       })}
                     </Stepper>
                   </div>
-                  {activeStep === 0 && (
+                  {activeStep === 1 && (
                     <div className={classes.smallContainer}>
                       <Paper className={classes.paper}>
                         <div>
@@ -299,7 +302,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {activeStep === 1 && (
+                  {activeStep === 0 && (
                     <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <div className={classes.topInfo}>
@@ -309,177 +312,33 @@ class Wizard extends Component {
                               style={{ fontWeight: "bold" }}
                               gutterBottom
                             >
-                              Details
+                              土壌分析結果入力
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                              We need some details about any information
+                              ※ 分析機器による土壌サンプルの分析結果を入力する。
                             </Typography>
                           </div>
-                          <div>
-                            <Button
-                              variant="outlined"
-                              size="large"
-                              className={classes.outlinedButtom}
-                            >
-                              Edit
-                            </Button>
-                          </div>
                         </div>
-                        <div className={classes.borderColumn}>
-                          <Grid
-                            item
-                            container
-                            xs={12}
-                            style={{ marginBottom: 32 }}
-                          >
-                            <Grid item xs={6}>
-                              <Typography
-                                style={{ textTransform: "uppercase" }}
-                                color="secondary"
-                                gutterBottom
-                              >
-                                Amount
-                              </Typography>
-                              <Typography variant="h5" gutterBottom>
-                                {parsed
-                                  ? numeral(parsed.amount).format()
-                                  : "75,000"}{" "}
-                                DKK
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Typography
-                                style={{ textTransform: "uppercase" }}
-                                color="secondary"
-                                gutterBottom
-                              >
-                                Total fees
-                              </Typography>
-                              <Typography variant="h5" gutterBottom>
-                                0 DKK
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                          <Grid item container xs={12}>
-                            <Grid item xs={6}>
-                              <Typography
-                                style={{ textTransform: "uppercase" }}
-                                color="secondary"
-                                gutterBottom
-                              >
-                                Total price
-                              </Typography>
-                              <Typography variant="h5" gutterBottom>
-                                {parsed
-                                  ? numeral(parsed.interest).format()
-                                  : "6,600"}{" "}
-                                USD
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Typography
-                                style={{ textTransform: "uppercase" }}
-                                color="secondary"
-                                gutterBottom
-                              >
-                                Total cost
-                              </Typography>
-                              <Typography variant="h5" gutterBottom>
-                                {parsed
-                                  ? numeral(parsed.cost).format()
-                                  : "81,600"}{" "}
-                                USD
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                        </div>
-                        <Grid item container xs={12}>
-                          <Grid
-                            item
-                            container
-                            xs={12}
-                            style={{ marginBottom: 32 }}
-                          >
-                            <Grid item xs={6}>
-                              <Typography
-                                style={{ textTransform: "uppercase" }}
-                                color="secondary"
-                                gutterBottom
-                              >
-                                How often
-                              </Typography>
-                              <Typography variant="h5" gutterBottom>
-                                Once a month
-                              </Typography>
-                            </Grid>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography
-                              style={{ textTransform: "uppercase" }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              When to start
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              01 February 2019
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography
-                              style={{ textTransform: "uppercase" }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              When it ends?
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              01 May 2019
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                        <Grid item container xs={12} style={{ marginTop: 24 }}>
-                          <Grid item xs={6}>
-                            <Typography
-                              style={{
-                                textTransform: "uppercase",
-                                marginBottom: 20
-                              }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              Destination account
-                            </Typography>
+                        <div>
+                          <Grid>
                             <FormControl
                               variant="outlined"
                               className={classes.formControl}
                             >
-                              <Select
-                                value={this.state.repaimentAccount}
+                              <TextField
+                                type="number"
+                                name="caoResult"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
+                                }}
+                                value={this.state.caoResult}
                                 onChange={this.handleChange}
-                                input={
-                                  <OutlinedInput
-                                    labelWidth={this.state.labelWidth}
-                                    name="repaimentAccount"
-                                  />
-                                }
-                              >
-                                <MenuItem value="">
-                                  <em></em>
-                                </MenuItem>
-                                <MenuItem value={"0297 00988200918"}>
-                                  Account one
-                                </MenuItem>
-                                <MenuItem value={"0235 00235233332"}>
-                                  Account two
-                                </MenuItem>
-                                <MenuItem value={"1256 00864222212"}>
-                                  Other account
-                                </MenuItem>
-                              </Select>
+                                label="CaO ( 交換性カルシウム )"
+                                variant="outlined"
+                              />
                             </FormControl>
                           </Grid>
-                        </Grid>
+                        </div>
                       </Paper>
                     </div>
                   )}
