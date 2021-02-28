@@ -237,13 +237,13 @@ class Wizard extends Component {
                                 <MenuItem value="">
                                   <em></em>
                                 </MenuItem>
-                                <MenuItem value={"0297 00988200918"}>
+                                <MenuItem value={"0"}>
                                   露地畑
                                 </MenuItem>
-                                <MenuItem value={"0235 00235233332"}>
+                                <MenuItem value={"1"}>
                                   露地畑(ﾎｳﾚﾝｿｳ)
                                 </MenuItem>
-                                <MenuItem value={"1256 00864222212"}>
+                                <MenuItem value={"2"}>
                                   施設畑
                                 </MenuItem>
                               </Select>
@@ -277,19 +277,19 @@ class Wizard extends Component {
                                 <MenuItem value="">
                                   <em></em>
                                 </MenuItem>
-                                <MenuItem value={"0297 00988200918"}>
+                                <MenuItem value={"0"}>
                                   腐植質黒ボク土
                                 </MenuItem>
-                                <MenuItem value={"0235 00235233332"}>
+                                <MenuItem value={"1"}>
                                   淡色黒ボク土
                                 </MenuItem>
-                                <MenuItem value={"1256 00864222212"}>
+                                <MenuItem value={"2"}>
                                   灰色低地土
                                 </MenuItem>
-                                <MenuItem value={"1256 00864222212"}>
+                                <MenuItem value={"3"}>
                                   グライ土
                                 </MenuItem>
-                                <MenuItem value={"1256 00864222212"}>
+                                <MenuItem value={"4"}>
                                   褐色森林土
                                 </MenuItem>
                               </Select>
