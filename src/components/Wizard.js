@@ -144,7 +144,7 @@ class Wizard extends Component {
     if (this.state.activeStep === 5) {
       return "Done";
     }
-    return "Next";
+    return "次へ進む";
   }
 
   goToDashboard = event => {
@@ -626,7 +626,7 @@ class Wizard extends Component {
                         className={classes.backButton}
                         size="large"
                       >
-                        Back
+                        戻る
                       </Button>
                     )}
                     <Button
