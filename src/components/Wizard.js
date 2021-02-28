@@ -93,13 +93,14 @@ const styles = theme => ({
 });
 
 const getSteps = () => {
-  return ["Info", "Bank", "Loan details", "Terms", "Confirm", "Done"];
+  return ["ほ場データの入力", "土壌分析結果の入力", "診断結果"];
 };
 
 class Wizard extends Component {
   state = {
     activeStep: 0,
-    receivingAccount: "Home Account",
+    fieldType: "ほ場の種類",
+    soilType: "土壌の種類",
     repaimentAccount: "Saving Account",
     termsChecked: false,
     labelWidth: 0
@@ -193,61 +194,6 @@ class Wizard extends Component {
                     </Stepper>
                   </div>
                   {activeStep === 0 && (
-                    <div className={classes.bigContainer}>
-                      <Paper className={classes.paper}>
-                        <div className={classes.topInfo}>
-                          <div>
-                            <Typography
-                              variant="subtitle1"
-                              style={{ fontWeight: "bold" }}
-                              gutterBottom
-                            >
-                              Information
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                              General information about the service
-                            </Typography>
-                          </div>
-                          <div>
-                            <Button
-                              variant="outlined"
-                              size="large"
-                              className={classes.outlinedButtom}
-                            >
-                              Edit
-                            </Button>
-                          </div>
-                        </div>
-                        <Grid item container xs={12}>
-                          <Grid item xs={6}>
-                            <Typography
-                              style={{ textTransform: "uppercase" }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              User
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              John Doe
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography
-                              style={{ textTransform: "uppercase" }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              City
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              Tokyo
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Paper>
-                    </div>
-                  )}
-                  {activeStep === 1 && (
                     <div className={classes.smallContainer}>
                       <Paper className={classes.paper}>
                         <div>
@@ -257,25 +203,13 @@ class Wizard extends Component {
                               style={{ fontWeight: "bold" }}
                               gutterBottom
                             >
-                              Bank information
+                              ほ場データ入力
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                              Select account to receive the money
+                              ※ この画面の入力データを元にしてマスタデータを選択する。
                             </Typography>
                           </div>
-                          <div style={{ marginBottom: 32 }}>
-                            <Typography
-                              style={{ textTransform: "uppercase" }}
-                              color="secondary"
-                              gutterBottom
-                            >
-                              Bank
-                            </Typography>
-                            <Typography variant="h5" gutterBottom>
-                              N26
-                            </Typography>
-                          </div>
-                          <div>
+                          <div style={{ marginBottom: 16 }}>
                             <Typography
                               style={{
                                 textTransform: "uppercase",
@@ -284,19 +218,19 @@ class Wizard extends Component {
                               color="secondary"
                               gutterBottom
                             >
-                              Receiving account
+                              ほ場の種類
                             </Typography>
                             <FormControl
                               variant="outlined"
                               className={classes.formControl}
                             >
                               <Select
-                                value={this.state.receivingAccount}
+                                value={this.state.fieldType}
                                 onChange={this.handleChange}
                                 input={
                                   <OutlinedInput
                                     labelWidth={this.state.labelWidth}
-                                    name="receivingAccount"
+                                    name="fieldType"
                                   />
                                 }
                               >
@@ -304,13 +238,59 @@ class Wizard extends Component {
                                   <em></em>
                                 </MenuItem>
                                 <MenuItem value={"0297 00988200918"}>
-                                  First account
+                                  露地畑
                                 </MenuItem>
                                 <MenuItem value={"0235 00235233332"}>
-                                  Second account
+                                  露地畑(ﾎｳﾚﾝｿｳ)
                                 </MenuItem>
                                 <MenuItem value={"1256 00864222212"}>
-                                  Third account
+                                  施設畑
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
+                          </div>
+                          <div style={{ marginBottom: 16 }}>
+                            <Typography
+                              style={{
+                                textTransform: "uppercase",
+                                marginBottom: 20
+                              }}
+                              color="secondary"
+                              gutterBottom
+                            >
+                              土壌の種類
+                            </Typography>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <Select
+                                value={this.state.soilType}
+                                onChange={this.handleChange}
+                                input={
+                                  <OutlinedInput
+                                    labelWidth={this.state.labelWidth}
+                                    name="soilType"
+                                  />
+                                }
+                              >
+                                <MenuItem value="">
+                                  <em></em>
+                                </MenuItem>
+                                <MenuItem value={"0297 00988200918"}>
+                                  腐植質黒ボク土
+                                </MenuItem>
+                                <MenuItem value={"0235 00235233332"}>
+                                  淡色黒ボク土
+                                </MenuItem>
+                                <MenuItem value={"1256 00864222212"}>
+                                  灰色低地土
+                                </MenuItem>
+                                <MenuItem value={"1256 00864222212"}>
+                                  グライ土
+                                </MenuItem>
+                                <MenuItem value={"1256 00864222212"}>
+                                  褐色森林土
                                 </MenuItem>
                               </Select>
                             </FormControl>
@@ -319,7 +299,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {activeStep === 2 && (
+                  {activeStep === 1 && (
                     <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <div className={classes.topInfo}>
@@ -503,7 +483,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {activeStep === 3 && (
+                  {activeStep === 2 && (
                     <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <div style={{ marginBottom: 24 }}>
@@ -596,7 +576,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {activeStep === 4 && (
+                  {activeStep === 3 && (
                     <div className={classes.smallContainer}>
                       <Paper className={classes.paper}>
                         <Grid item container xs={12}>
@@ -616,7 +596,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {(activeStep === 5 || activeStep === 6) && (
+                  {(activeStep === 4 || activeStep === 5) && (
                     <div className={classes.smallContainer}>
                       <Paper className={classes.paper}>
                         <Grid item container xs={12}>
@@ -639,7 +619,7 @@ class Wizard extends Component {
                     </div>
                   )}
                   <div className={classes.flexBar}>
-                    {activeStep !== 5 && (
+                    {activeStep !== 4 && (
                       <Button
                         disabled={activeStep === 0}
                         onClick={this.handleBack}
@@ -651,7 +631,7 @@ class Wizard extends Component {
                     )}
                     <Button
                       variant="contained"
-                      color="primary"
+                      color="secondary"
                       onClick={
                         activeStep !== 5 ? this.handleNext : this.goToDashboard
                       }
