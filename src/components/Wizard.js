@@ -101,9 +101,15 @@ const getSteps = () => {
 class Wizard extends Component {
   state = {
     activeStep: 0,
-    fieldType: null,
-    soilType: null,
-    caoResult: 0,
+    fieldType: "",
+    soilType: "",
+    phResult: 0,
+    ecResult: 1,
+    caoResult: 2,
+    mgoResult: 3,
+    k2oResult: 4,
+    p2o5Result: 5,
+    no3nResult: 6,
     repaimentAccount: "Saving Account",
     termsChecked: false,
     labelWidth: 0
@@ -196,7 +202,7 @@ class Wizard extends Component {
                       })}
                     </Stepper>
                   </div>
-                  {activeStep === 1 && (
+                  {activeStep === 0 && (
                     <div className={classes.smallContainer}>
                       <Paper className={classes.paper}>
                         <div>
@@ -302,7 +308,7 @@ class Wizard extends Component {
                       </Paper>
                     </div>
                   )}
-                  {activeStep === 0 && (
+                  {activeStep === 1 && (
                     <div className={classes.bigContainer}>
                       <Paper className={classes.paper}>
                         <div className={classes.topInfo}>
@@ -327,6 +333,39 @@ class Wizard extends Component {
                             >
                               <TextField
                                 type="number"
+                                name="phResult"
+                                value={this.state.phResult}
+                                onChange={this.handleChange}
+                                label="pH ( H2O )"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
+                                name="ecResult"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">ms/cm</InputAdornment>
+                                }}
+                                value={this.state.ecResult}
+                                onChange={this.handleChange}
+                                label="EC"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
                                 name="caoResult"
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
@@ -334,6 +373,78 @@ class Wizard extends Component {
                                 value={this.state.caoResult}
                                 onChange={this.handleChange}
                                 label="CaO ( 交換性カルシウム )"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
+                                name="mgoResult"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
+                                }}
+                                value={this.state.mgoResult}
+                                onChange={this.handleChange}
+                                label="MgO ( 交換性マグネシウム )"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
+                                name="k2oResult"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
+                                }}
+                                value={this.state.k2oResult}
+                                onChange={this.handleChange}
+                                label="K2O ( 交換性カリウム )"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
+                                name="p2o5Result"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
+                                }}
+                                value={this.state.p2o5Result}
+                                onChange={this.handleChange}
+                                label="P2O5 ( 有効態リン酸 )"
+                                variant="outlined"
+                              />
+                            </FormControl>
+                          </Grid>
+                          <Grid>
+                            <FormControl
+                              variant="outlined"
+                              className={classes.formControl}
+                            >
+                              <TextField
+                                type="number"
+                                name="no3nResult"
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
+                                }}
+                                value={this.state.no3nResult}
+                                onChange={this.handleChange}
+                                label="NO3-N ( 硝酸態窒素 )"
                                 variant="outlined"
                               />
                             </FormControl>
