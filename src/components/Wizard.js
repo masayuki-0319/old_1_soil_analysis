@@ -10,9 +10,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -102,16 +99,16 @@ const getSteps = () => {
 class Wizard extends Component {
   state = {
     activeStep: 0,
-    fieldType: "",
+    labelWidth: 0,
     soilType: "",
+    fieldType: "",
     phResult: 0,
     ecResult: 1,
     caoResult: 2,
     mgoResult: 3,
     k2oResult: 4,
     p2o5Result: 5,
-    no3nResult: 6,
-    labelWidth: 0
+    no3nResult: 6
   };
 
   componentDidMount() {}
@@ -470,48 +467,6 @@ class Wizard extends Component {
                         <div>
                           <CustomizedTables currentData={this.state} />
                         </div>
-                      </Paper>
-                    </div>
-                  )}
-                  {activeStep === 3 && (
-                    <div className={classes.smallContainer}>
-                      <Paper className={classes.paper}>
-                        <Grid item container xs={12}>
-                          <Grid item xs={12}>
-                            <Typography
-                              variant="subtitle1"
-                              style={{ fontWeight: "bold" }}
-                              gutterBottom
-                            >
-                              Sign & confirm
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                              Sign and confirm your agreement
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Paper>
-                    </div>
-                  )}
-                  {(activeStep === 4 || activeStep === 5) && (
-                    <div className={classes.smallContainer}>
-                      <Paper className={classes.paper}>
-                        <Grid item container xs={12}>
-                          <Grid item xs={12}>
-                            <Typography variant="subtitle1" gutterBottom>
-                              Congratulations{" "}
-                              <span role="img" aria-label="conrats emoji">
-                                🎉
-                              </span>
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                              We have now a positive response
-                            </Typography>
-                            <Button fullWidth variant="outlined">
-                              Download the service invoice or whatever
-                            </Button>
-                          </Grid>
-                        </Grid>
                       </Paper>
                     </div>
                   )}
