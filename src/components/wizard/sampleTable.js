@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import masterData from './master_data/field_type'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -30,14 +31,17 @@ function createData(name, current, min, max) {
     return { name, current, min, max };
 }
 
-function rows() {
+function rows(current, master) {
+    const currentData = current;
+    const standardData = master[0];
+
     return [
-        createData('pH (H2O)', 159, 6.0, 24),
-        createData('NO3-N (硝酸態窒素)', 159, 6.0, 24),
-        createData('P2O5(有効態リン酸)', 237, 9.0, 37),
-        createData('CaO (交換性石灰)', 262, 16.0, 24),
-        createData('MgO (交換性苦土)', 305, 3.7, 67),
-        createData('K2O (交換性加里)', 356, 16.0, 49),
+        createData('pH (H2O)', currentData.phResult, standardData.pH_MIN, standardData.pH_MAX),
+        createData('NO3-N (硝酸態窒素)', currentData.no3nResult, standardData.NO3_N_MIN, standardData.NO3_N_MAX),
+        createData('P2O5(有効態リン酸)', currentData.p2o5Result, standardData.P2O5_MIN, standardData.P2O5_MAX),
+        createData('CaO (交換性石灰)', currentData.caoResult, 0, 0),
+        createData('MgO (交換性苦土)', currentData.mgoResult, 0, 0),
+        createData('K2O (交換性加里)', currentData.k2oResult, 0, 0),
     ];
 }
 
@@ -49,7 +53,8 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(currentData) {
     const classes = useStyles();
-    const data = currentData;
+    const data = currentData.currentData;
+    const displayData = rows(data, masterData);
 
     return (
         <TableContainer component={Paper}>
@@ -63,7 +68,7 @@ export default function CustomizedTables(currentData) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows().map((row) => (
+                    {displayData.map((row) => (
                         <StyledTableRow key={row.name}>
                             <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                             <StyledTableCell align="right">{row.current}</StyledTableCell>

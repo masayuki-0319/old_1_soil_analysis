@@ -101,7 +101,7 @@ class Wizard extends Component {
     activeStep: 0,
     labelWidth: 0,
     soilType: "",
-    fieldType: "",
+    fieldType: "露地畑",
     phResult: 0,
     ecResult: 1,
     caoResult: 2,
@@ -471,7 +471,7 @@ class Wizard extends Component {
                     </div>
                   )}
                   <div className={classes.flexBar}>
-                    {activeStep !== 4 && (
+                    {activeStep !== 2 && (
                       <Button
                         disabled={activeStep === 0}
                         onClick={this.handleBack}
@@ -485,11 +485,11 @@ class Wizard extends Component {
                       variant="contained"
                       color="secondary"
                       onClick={
-                        activeStep !== 5 ? this.handleNext : this.goToDashboard
+                        activeStep !== 2 ? this.handleNext : this.goToDashboard
                       }
                       size="large"
                       disabled={
-                        this.state.activeStep === 3 && !this.state.termsChecked
+                        this.state.activeStep === 2 && !this.state.termsChecked
                       }
                     >
                       {this.stepActions()}
