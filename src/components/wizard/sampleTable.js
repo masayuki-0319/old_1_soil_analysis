@@ -31,17 +31,35 @@ function createData(name, current, min, max) {
     return { name, current, min, max };
 }
 
+function calcCaO(data) {
+    const cec = 20;
+    return data * 28.04 * cec / 100;
+}
+function calcMgO(data) {
+    const cec = 20;
+    return data * 20.15 * cec / 100;
+}
+function calcK2O(data) {
+    const cec = 20;
+    return data * 47.10 * cec / 100;
+}
+
+function createSaturationData(name, current, min, max) {
+    return { name, current, min, max };
+}
+
 function rows(current, master) {
     const currentData = current;
-    const standardData = master[0];
+    const standardData = master.find((data) => data.field_type === currentData.fieldType);
 
     return [
         createData('pH (H2O)', currentData.phResult, standardData.pH_MIN, standardData.pH_MAX),
-        createData('NO3-N (硝酸態窒素)', currentData.no3nResult, standardData.NO3_N_MIN, standardData.NO3_N_MAX),
+        createData('EC', currentData.ecResult, 0, 0.35),
+        createData('CaO (交換性石灰)', currentData.caoResult, calcCaO(standardData.CaO_saturation_MIN), calcCaO(standardData.CaO_saturation_MAX)),
+        createData('MgO (交換性苦土)', currentData.mgoResult, calcMgO(standardData.MgO_saturation_MIN), calcMgO(standardData.MgO_saturation_MAX)),
+        createData('K2O (交換性加里)', currentData.k2oResult, calcK2O(standardData.K2O_saturation_MIN), calcK2O(standardData.K2O_saturation_MAX)),
         createData('P2O5(有効態リン酸)', currentData.p2o5Result, standardData.P2O5_MIN, standardData.P2O5_MAX),
-        createData('CaO (交換性石灰)', currentData.caoResult, 0, 0),
-        createData('MgO (交換性苦土)', currentData.mgoResult, 0, 0),
-        createData('K2O (交換性加里)', currentData.k2oResult, 0, 0),
+        createData('NO3-N (硝酸態窒素)', currentData.no3nResult, standardData.NO3_N_MIN, standardData.NO3_N_MAX),
     ];
 }
 

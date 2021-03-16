@@ -101,14 +101,14 @@ class Wizard extends Component {
     activeStep: 0,
     labelWidth: 0,
     soilType: "",
-    fieldType: "露地畑",
-    phResult: 0,
-    ecResult: 1,
-    caoResult: 2,
-    mgoResult: 3,
-    k2oResult: 4,
-    p2o5Result: 5,
-    no3nResult: 6
+    fieldType: "施設畑",
+    phResult: 5.3,
+    ecResult: 0.62,
+    caoResult: 248,
+    mgoResult: 13,
+    k2oResult: 98,
+    p2o5Result: 59,
+    no3nResult: 1.0
   };
 
   componentDidMount() {}
