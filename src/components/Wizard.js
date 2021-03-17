@@ -17,6 +17,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Back from "./common/Back";
 import TextField from '@material-ui/core/TextField';
 import CustomizedTables from './wizard/sampleTable'
+import masterData from './wizard/master_data/field_type'
+import soilMasterData from './wizard/master_data/soilType'
 
 const qs = require("query-string");
 const backgroundShape = require("../images/shape.svg");
@@ -100,8 +102,8 @@ class Wizard extends Component {
   state = {
     activeStep: 0,
     labelWidth: 0,
-    soilType: "",
-    fieldType: "施設畑",
+    soilType: 0,
+    fieldType: 0,
     phResult: 5.3,
     ecResult: 0.62,
     caoResult: 248,
@@ -167,6 +169,8 @@ class Wizard extends Component {
     const parsed = queryString ? qs.parse(queryString) : {};
     const steps = getSteps();
     const { activeStep } = this.state;
+    const fieldTypes  = masterData.map((hash) => [hash["id"], hash["field_type"]]);
+    const soilTypes  = soilMasterData.map((hash) => [hash["id"], hash["name"]]);
 
     return (
       <React.Fragment>
@@ -242,15 +246,11 @@ class Wizard extends Component {
                                 <MenuItem value="">
                                   <em></em>
                                 </MenuItem>
-                                <MenuItem value={"0"}>
-                                  露地畑
-                                </MenuItem>
-                                <MenuItem value={"1"}>
-                                  露地畑(ﾎｳﾚﾝｿｳ)
-                                </MenuItem>
-                                <MenuItem value={"2"}>
-                                  施設畑
-                                </MenuItem>
+                                {fieldTypes.map((row) => (
+                                  <MenuItem value={row[0]}>
+                                    {row[1]}
+                                  </MenuItem>
+                                ))}
                               </Select>
                             </FormControl>
                           </div>
@@ -282,21 +282,11 @@ class Wizard extends Component {
                                 <MenuItem value="">
                                   <em></em>
                                 </MenuItem>
-                                <MenuItem value={"0"}>
-                                  腐植質黒ボク土
-                                </MenuItem>
-                                <MenuItem value={"1"}>
-                                  淡色黒ボク土
-                                </MenuItem>
-                                <MenuItem value={"2"}>
-                                  灰色低地土
-                                </MenuItem>
-                                <MenuItem value={"3"}>
-                                  グライ土
-                                </MenuItem>
-                                <MenuItem value={"4"}>
-                                  褐色森林土
-                                </MenuItem>
+                                {soilTypes.map((row) => (
+                                  <MenuItem value={row[0]}>
+                                    {row[1]}
+                                  </MenuItem>
+                                ))}
                               </Select>
                             </FormControl>
                           </div>
@@ -471,7 +461,7 @@ class Wizard extends Component {
                     </div>
                   )}
                   <div className={classes.flexBar}>
-                    {activeStep !== 2 && (
+                    {activeStep !== 3 && (
                       <Button
                         disabled={activeStep === 0}
                         onClick={this.handleBack}

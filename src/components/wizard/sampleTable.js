@@ -44,13 +44,9 @@ function calcK2O(data) {
     return data * 47.10 * cec / 100;
 }
 
-function createSaturationData(name, current, min, max) {
-    return { name, current, min, max };
-}
-
 function rows(current, master) {
     const currentData = current;
-    const standardData = master.find((data) => data.field_type === currentData.fieldType);
+    const standardData = master.find((data) => data.id === currentData.fieldType);
 
     return [
         createData('pH (H2O)', currentData.phResult, standardData.pH_MIN, standardData.pH_MAX),
