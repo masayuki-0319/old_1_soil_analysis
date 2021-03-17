@@ -101,8 +101,8 @@ class Wizard extends Component {
   state = {
     activeStep: 0,
     labelWidth: 0,
-    soilType: 0,
-    fieldType: 0,
+    soilType: 1,
+    fieldType: 1,
     phResult: 5.3,
     ecResult: 0.62,
     caoResult: 248,
