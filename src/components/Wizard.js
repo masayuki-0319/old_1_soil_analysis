@@ -232,9 +232,6 @@ class Wizard extends Component {
                                   />
                                 }
                               >
-                                <MenuItem value="">
-                                  <em></em>
-                                </MenuItem>
                                 {fieldTypes.map((row) => (
                                   <MenuItem value={row[0]}>
                                     {row[1]}
@@ -268,9 +265,6 @@ class Wizard extends Component {
                                   />
                                 }
                               >
-                                <MenuItem value="">
-                                  <em></em>
-                                </MenuItem>
                                 {soilTypes.map((row) => (
                                   <MenuItem value={row[0]}>
                                     {row[1]}
@@ -450,24 +444,20 @@ class Wizard extends Component {
                     </div>
                   )}
                   <div className={classes.flexBar}>
-                    {activeStep !== 3 && (
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={this.handleBack}
-                        className={classes.backButton}
-                        size="large"
-                      >
-                        戻る
-                      </Button>
-                    )}
+                    <Button
+                      className={classes.backButton}
+                      size="large"
+                      onClick={this.handleBack}
+                      disabled={activeStep === 0}
+                    >
+                      戻る
+                    </Button>
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={this.handleNext}
                       size="large"
-                      disabled={
-                        this.state.activeStep === 2 && !this.state.termsChecked
-                      }
+                      onClick={this.handleNext}
+                      disabled={this.state.activeStep === 2}
                     >
                       {this.stepActions()}
                     </Button>
