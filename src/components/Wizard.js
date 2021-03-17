@@ -14,7 +14,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Back from "./common/Back";
 import TextField from '@material-ui/core/TextField';
 import CustomizedTables from './wizard/sampleTable'
 import masterData from './wizard/master_data/field_type'
@@ -154,15 +153,6 @@ class Wizard extends Component {
     return "次へ進む";
   }
 
-  goToDashboard = event => {
-    const queryString = this.props.location.search;
-
-    this.props.history.push({
-      pathname: "/dashboard",
-      search: queryString
-    });
-  };
-
   render() {
     const { classes } = this.props;
     const queryString = this.props.location.search;
@@ -185,7 +175,6 @@ class Wizard extends Component {
               className={classes.grid}
             >
               <Grid item xs={12}>
-                <Back />
                 <div className={classes.stepContainer}>
                   <div className={classes.bigContainer}>
                     <Stepper
@@ -474,9 +463,7 @@ class Wizard extends Component {
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={
-                        activeStep !== 2 ? this.handleNext : this.goToDashboard
-                      }
+                      onClick={this.handleNext}
                       size="large"
                       disabled={
                         this.state.activeStep === 2 && !this.state.termsChecked
