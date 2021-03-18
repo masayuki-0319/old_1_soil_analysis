@@ -16,8 +16,8 @@ import Select from "@material-ui/core/Select";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import CustomizedTables from './wizard/sampleTable'
-import masterData from './wizard/master_data/field_type'
-import soilMasterData from './wizard/master_data/soilType'
+import fieldTypes from './wizard/master_data/fieldTypes'
+import soilTypes from './wizard/master_data/soilTypes'
 
 const qs = require("query-string");
 const backgroundShape = require("../images/shape.svg");
@@ -159,8 +159,8 @@ class Wizard extends Component {
     const parsed = queryString ? qs.parse(queryString) : {};
     const steps = getSteps();
     const { activeStep } = this.state;
-    const fieldTypes  = masterData.map((hash) => [hash["id"], hash["field_type"]]);
-    const soilTypes  = soilMasterData.map((hash) => [hash["id"], hash["name"]]);
+    const selectFieldTypes  = fieldTypes.map((hash) => [hash["id"], hash["field_type"]]);
+    const selectSoilTypes  = soilTypes.map((hash) => [hash["id"], hash["name"]]);
 
     return (
       <React.Fragment>
@@ -232,7 +232,7 @@ class Wizard extends Component {
                                   />
                                 }
                               >
-                                {fieldTypes.map((row) => (
+                                {selectFieldTypes.map((row) => (
                                   <MenuItem value={row[0]}>
                                     {row[1]}
                                   </MenuItem>
@@ -265,7 +265,7 @@ class Wizard extends Component {
                                   />
                                 }
                               >
-                                {soilTypes.map((row) => (
+                                {selectSoilTypes.map((row) => (
                                   <MenuItem value={row[0]}>
                                     {row[1]}
                                   </MenuItem>

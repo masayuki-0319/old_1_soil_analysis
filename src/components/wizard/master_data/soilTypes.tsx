@@ -1,4 +1,9 @@
-const soilType = [
+interface soilType {
+  id: number
+  name: string
+}
+
+const soilTypes: soilType[] = [
   {
     "id": 1,
     "name": "岩屑土"
@@ -65,4 +70,4 @@ const soilType = [
   }
 ];
 
-export default soilType;
+export default soilTypes;
