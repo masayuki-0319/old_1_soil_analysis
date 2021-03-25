@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/styles/withStyles";
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -18,6 +20,7 @@ import TextField from '@material-ui/core/TextField';
 import CustomizedTables from './wizard/sampleTable'
 import fieldTypes from './wizard/master_data/fieldTypes'
 import soilTypes from './wizard/master_data/soilTypes'
+import checkSoilProps from './wizard/checkSoilProps'
 
 const qs = require("query-string");
 const backgroundShape = require("../images/shape.svg");
@@ -25,10 +28,10 @@ const backgroundShape = require("../images/shape.svg");
 const numeral = require("numeral");
 numeral.defaultFormat("0,000");
 
-const styles = theme => ({
+const styles = (theme: any): StyleRules => createStyles({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.primary["A100"],
+    backgroundColor: theme.palette.primary,
     overflow: "hidden",
     background: `url(${backgroundShape}) no-repeat`,
     backgroundSize: "cover",
@@ -93,26 +96,47 @@ const styles = theme => ({
   }
 });
 
-const getSteps = () => {
+type Location = {
+  location: {
+    hash: string,
+    pathname: string,
+    search: string,
+    state: string | undefined | unknown
+  }
+  }
+
+const getSteps = (): string[] => {
   return ["ほ場データの入力", "土壌分析結果の入力", "診断結果"];
 };
 
-class Wizard extends Component {
-  state = {
-    activeStep: 0,
-    labelWidth: 0,
-    soilType: 1,
-    fieldType: 1,
-    phResult: 5.3,
-    ecResult: 0.62,
-    caoResult: 248,
-    mgoResult: 13,
-    k2oResult: 98,
-    p2o5Result: 59,
-    no3nResult: 1.0
-  };
+interface wizardProps extends WithStyles<typeof styles> { }
 
-  componentDidMount() {}
+interface wizardState extends checkSoilProps {
+  activeStep: number
+  labelWidth: number
+}
+
+const initialState: wizardState = {
+  activeStep: 0,
+  labelWidth: 0,
+  soilType: 1,
+  fieldType: 1,
+  phResult: 5.3,
+  ecResult: 0.62,
+  caoResult: 248,
+  mgoResult: 13,
+  k2oResult: 98,
+  p2o5Result: 59,
+  no3nResult: 1.0
+}
+
+class Wizard extends Component<wizardProps & Location, wizardState> {
+  constructor(props: (wizardProps & Location)) {
+    super(props);
+    this.state = initialState;
+  }
+
+  componentDidMount() { };
 
   handleNext = () => {
     this.setState(state => ({
@@ -132,12 +156,9 @@ class Wizard extends Component {
     });
   };
 
-  handleChange = event => {
+  handleChange = (event: any) => {
+     {/* @ts-ignore */}
     this.setState({ [event.target.name]: event.target.value });
-  };
-
-  handleTerms = event => {
-    this.setState({ termsChecked: event.target.checked });
   };
 
   stepActions() {
@@ -472,4 +493,6 @@ class Wizard extends Component {
   }
 }
 
+{/* @ts-ignore */}
 export default withRouter(withStyles(styles)(Wizard));
+
