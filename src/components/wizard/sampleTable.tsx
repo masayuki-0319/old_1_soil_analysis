@@ -7,7 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import masterData from './master_data/fieldTypes'
+import fieldMasterData from './master_data/fieldMasterData'
+import fieldType from './master_data/fieldType'
+import checkSoilProps from './checkSoilProps'
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -27,26 +29,49 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(name, current, min, max) {
+type displayDataType = {
+    name: string,
+    current: number,
+    min: number,
+    max: number
+}
+
+function createData(name: string, current: number, min: number, max: number): displayDataType {
     return { name, current, min, max };
 }
 
-function calcCaO(data) {
+function calcCaO(data: number): number {
     const cec = 20;
     return data * 28.04 * cec / 100;
 }
-function calcMgO(data) {
+function calcMgO(data: number): number {
     const cec = 20;
     return data * 20.15 * cec / 100;
 }
-function calcK2O(data) {
+function calcK2O(data: number): number {
     const cec = 20;
     return data * 47.10 * cec / 100;
 }
 
-function rows(current, master) {
+function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
+    if (val === undefined || val === null) {
+        throw new Error(
+            `Expected 'val' to be defined, but received ${val}`
+        );
+    }
+}
+
+function findMasterData(currentFieldType: number): fieldType {
+    const masterData = fieldMasterData;
+    const resultData = masterData.find((data) => data.id === currentFieldType);
+    assertIsDefined(resultData);
+
+    return resultData;
+}
+
+function rows(current: checkSoilProps, master: fieldType[]): displayDataType[] {
     const currentData = current;
-    const standardData = master.find((data) => data.id === currentData.fieldType);
+    const standardData = findMasterData(currentData.fieldType);
 
     return [
         createData('pH (H2O)', currentData.phResult, standardData.pH_MIN, standardData.pH_MAX),
@@ -65,10 +90,11 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CustomizedTables(currentData) {
+// export default function CustomizedTables(currentData: IntrinsicAttributes & checkSoilProps) {
+export default function CustomizedTables(props: { currentData: checkSoilProps }) {
     const classes = useStyles();
-    const data = currentData.currentData;
-    const displayData = rows(data, masterData);
+    const data = props.currentData;
+    const displayData = rows(data, fieldMasterData);
 
     return (
         <TableContainer component={Paper}>
