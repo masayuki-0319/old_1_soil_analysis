@@ -21,7 +21,6 @@ import fieldMasterData from './wizard/master_data/fieldMasterData'
 import soilTypes from './wizard/master_data/soilTypes'
 import checkSoilProps from './wizard/checkSoilProps'
 
-const qs = require("query-string");
 const backgroundShape = require("../images/shape.svg");
 
 const numeral = require("numeral");
@@ -158,36 +157,24 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
     }));
   };
 
-  handleReset = () => {
-    this.setState({
-      page: { activeStep: 0, labelWidth: 0 }
-    });
-  };
-
+  // TODO: state の変更ができない！
   handleChange = (event: any) => {
      {/* @ts-ignore */}
     this.setState({ [event.target.name]: event.target.value });
   };
 
   stepActions() {
-    if (this.state.page.activeStep === 3) {
-      return "Accept";
-    }
-    if (this.state.page.activeStep === 4) {
-      return "Send";
-    }
-    if (this.state.page.activeStep === 5) {
-      return "Done";
+    if (this.state.page.activeStep === 2) {
+      return "終了";
     }
     return "次へ進む";
   }
 
   render() {
     const { classes } = this.props;
-    const queryString = this.props.location.search;
-    const parsed = queryString ? qs.parse(queryString) : {};
     const steps = getSteps();
     const { activeStep } = this.state.page;
+    const { form } = this.state;
     const selectFieldTypes  = fieldMasterData.map((hash) => [hash["id"], hash["field_type"]]);
     const selectSoilTypes  = soilTypes.map((hash) => [hash["id"], hash["name"]]);
 
@@ -252,7 +239,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                               className={classes.formControl}
                             >
                               <Select
-                                value={this.state.form.fieldType}
+                                value={form.fieldType}
                                 onChange={this.handleChange}
                                 input={
                                   <OutlinedInput
@@ -285,7 +272,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                               className={classes.formControl}
                             >
                               <Select
-                                value={this.state.form.soilType}
+                                value={form.soilType}
                                 onChange={this.handleChange}
                                 input={
                                   <OutlinedInput
@@ -332,7 +319,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                               <TextField
                                 type="number"
                                 name="phResult"
-                                value={this.state.form.phResult}
+                                value={form.phResult}
                                 onChange={this.handleChange}
                                 label="pH ( H2O )"
                                 variant="outlined"
@@ -350,7 +337,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">ms/cm</InputAdornment>
                                 }}
-                                value={this.state.form.ecResult}
+                                value={form.ecResult}
                                 onChange={this.handleChange}
                                 label="EC"
                                 variant="outlined"
@@ -368,7 +355,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
                                 }}
-                                value={this.state.form.caoResult}
+                                value={form.caoResult}
                                 onChange={this.handleChange}
                                 label="CaO ( 交換性カルシウム )"
                                 variant="outlined"
@@ -386,7 +373,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
                                 }}
-                                value={this.state.form.mgoResult}
+                                value={form.mgoResult}
                                 onChange={this.handleChange}
                                 label="MgO ( 交換性マグネシウム )"
                                 variant="outlined"
@@ -404,7 +391,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
                                 }}
-                                value={this.state.form.k2oResult}
+                                value={form.k2oResult}
                                 onChange={this.handleChange}
                                 label="K2O ( 交換性カリウム )"
                                 variant="outlined"
@@ -422,7 +409,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
                                 }}
-                                value={this.state.form.p2o5Result}
+                                value={form.p2o5Result}
                                 onChange={this.handleChange}
                                 label="P2O5 ( 有効態リン酸 )"
                                 variant="outlined"
@@ -440,7 +427,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                                 InputProps={{
                                   endAdornment: <InputAdornment position="end">mg/100g</InputAdornment>
                                 }}
-                                value={this.state.form.no3nResult}
+                                value={form.no3nResult}
                                 onChange={this.handleChange}
                                 label="NO3-N ( 硝酸態窒素 )"
                                 variant="outlined"
@@ -467,7 +454,7 @@ class Wizard extends Component<wizardProps & Location, wizardState> {
                           </Typography>
                         </div>
                         <div>
-                          <CustomizedTables currentData={this.state.form} />
+                          <CustomizedTables currentData={form} />
                         </div>
                       </Paper>
                     </div>

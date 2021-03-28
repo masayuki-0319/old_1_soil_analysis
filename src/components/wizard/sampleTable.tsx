@@ -93,8 +93,8 @@ const useStyles = makeStyles({
 // export default function CustomizedTables(currentData: IntrinsicAttributes & checkSoilProps) {
 export default function CustomizedTables(props: { currentData: checkSoilProps }) {
     const classes = useStyles();
-    const data = props.currentData;
-    const displayData = rows(data, fieldMasterData);
+    const { currentData } = props;
+    const displayData = rows(currentData, fieldMasterData);
 
     return (
         <TableContainer component={Paper}>
