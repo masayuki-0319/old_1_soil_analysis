@@ -3,7 +3,7 @@ import { Route, HashRouter, Switch } from 'react-router-dom'
 import Wizard from './components/Wizard'
 import ScrollToTop from './components/ScrollTop'
 
-export default () => (
+export const Routes = () => (
   <HashRouter>
     <ScrollToTop>
       <Switch>

@@ -1,4 +1,4 @@
-import React, { Props } from 'react';
+import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +10,12 @@ import Paper from '@material-ui/core/Paper';
 import fieldMasterData from './master_data/fieldMasterData'
 import fieldType from './master_data/fieldType'
 import checkSoilProps from './checkSoilProps'
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 700,
+    },
+});
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -61,17 +67,16 @@ function assertIsDefined<T>(val: T): asserts val is NonNullable<T> {
     }
 }
 
-function findMasterData(currentFieldType: number): fieldType {
-    const masterData = fieldMasterData;
+function findMasterData(currentFieldType: number, masterData: fieldType[]): fieldType {
     const resultData = masterData.find((data) => data.id === currentFieldType);
     assertIsDefined(resultData);
 
     return resultData;
 }
 
-function rows(current: checkSoilProps, master: fieldType[]): displayDataType[] {
+function rows(current: checkSoilProps, masterData: fieldType[]): displayDataType[] {
     const currentData = current;
-    const standardData = findMasterData(currentData.fieldType);
+    const standardData = findMasterData(currentData.fieldType, masterData);
 
     return [
         createData('pH (H2O)', currentData.phResult, standardData.pH_MIN, standardData.pH_MAX),
@@ -83,12 +88,6 @@ function rows(current: checkSoilProps, master: fieldType[]): displayDataType[] {
         createData('NO3-N (硝酸態窒素)', currentData.no3nResult, standardData.NO3_N_MIN, standardData.NO3_N_MAX),
     ];
 }
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 700,
-    },
-});
 
 export const CustomizedTables = (props: { currentData: checkSoilProps }) => {
     const classes = useStyles();
