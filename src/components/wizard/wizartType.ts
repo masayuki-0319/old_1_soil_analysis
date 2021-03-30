@@ -1,4 +1,4 @@
-import checkSoilProps from './checkSoilProps'
+import { checkSoilProps } from './checkSoilProps'
 
 interface wizardState extends checkSoilProps {
   activeStep: number
