@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Props } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -90,8 +90,7 @@ const useStyles = makeStyles({
     },
 });
 
-// export default function CustomizedTables(currentData: IntrinsicAttributes & checkSoilProps) {
-export default function CustomizedTables(props: { currentData: checkSoilProps }) {
+export const CustomizedTables = (props: { currentData: checkSoilProps }) => {
     const classes = useStyles();
     const { currentData } = props;
     const displayData = rows(currentData, fieldMasterData);

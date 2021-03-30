@@ -16,7 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import CustomizedTables from './wizard/sampleTable'
+import { CustomizedTables } from './wizard/sampleTable'
 import fieldMasterData from './wizard/master_data/fieldMasterData'
 import soilTypes from './wizard/master_data/soilTypes'
 import checkSoilProps from './wizard/checkSoilProps'
